@@ -46,6 +46,58 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\BandColorBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BandColorBox.Designer.cs">
+      <DependentUpon>BandColorBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Color\ColorBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Color\ColorBar.Designer.cs">
+      <DependentUpon>ColorBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Color\ColorGradientSlider.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Color\ColorGradientSlider.Designer.cs">
+      <DependentUpon>ColorGradientSlider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Color\ColorPalettePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Color\ColorPalettePanel.Designer.cs">
+      <DependentUpon>ColorPalettePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Color\ColorWheelDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Color\ColorWheelDialog.Designer.cs">
+      <DependentUpon>ColorWheelDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Color\ColorWheelPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Color\ColorWheelPanel.Designer.cs">
+      <DependentUpon>ColorWheelPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Color\DrawLib.cs" />
+    <Compile Include="Color\HSV.cs" />
+    <Compile Include="Color\MathLib.cs" />
+    <Compile Include="Color\SimpleColorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Color\SimpleColorDialog.Designer.cs">
+      <DependentUpon>SimpleColorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Color\WindowsLib.cs" />
+    <Compile Include="Controls\ColorPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorPicker.Designer.cs">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +106,30 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\BandColorBox.resx">
+      <DependentUpon>BandColorBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Color\ColorBar.resx">
+      <DependentUpon>ColorBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Color\ColorGradientSlider.resx">
+      <DependentUpon>ColorGradientSlider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Color\ColorPalettePanel.resx">
+      <DependentUpon>ColorPalettePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Color\ColorWheelDialog.resx">
+      <DependentUpon>ColorWheelDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Color\ColorWheelPanel.resx">
+      <DependentUpon>ColorWheelPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Color\SimpleColorDialog.resx">
+      <DependentUpon>SimpleColorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ColorPicker.resx">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -79,5 +155,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

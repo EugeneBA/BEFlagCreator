@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BECSLibrary;
 using BECSLibrary.Controls;
+using BEFlagCreator.Properties;
 
 namespace BEFlagCreator
 {
@@ -19,7 +20,22 @@ namespace BEFlagCreator
         public MainForm()
         {
             InitializeComponent();
-            _comboAspectRatio.SelectedIndex = 0;
+
+            _bandColorBoxes = new BandColorBox[]
+            {
+                _bandColorBox1,
+                _bandColorBox2,
+                _bandColorBox3,
+                _bandColorBox4,
+                _bandColorBox5,
+                _bandColorBox6,
+                _bandColorBox7
+            };
+
+            UpdateBandColorBoxEnables();
+
+            if (_comboAspectRatio.SelectedIndex < 0)
+                _comboAspectRatio.SelectedIndex = 0;
         }
 
         private void _btnClose_Click(object sender, EventArgs e)
@@ -27,45 +43,63 @@ namespace BEFlagCreator
             Close();
         }
 
+        private BandColorBox[] _bandColorBoxes;
+
         private Bitmap _flagImage;
-        private double[] _aspectRatios = {2.0 / 3.0, 3.0 / 5.0, 1.0 / 2.0};
+        private double[] _aspectRatios = { 2.0 / 3.0, 3.0 / 5.0, 1.0 / 2.0 };
 
         void UpdateFlagImage()
         {
-            Color[] colors = new Color[]
-            {
-                _bandColorBox1.BandColor,
-                _bandColorBox2.BandColor,
-                _bandColorBox3.BandColor,
-                _bandColorBox4.BandColor,
-                _bandColorBox5.BandColor,
-                _bandColorBox6.BandColor,
-                _bandColorBox7.BandColor
-            };
-
-            int flagHeight = (int) _upDownHeight.Value;
+            int flagHeight = (int)_upDownHeight.Value;
             int margins = 2;
 
             int flagWidth = (int)_upDownWidth.Value;
 
-            if (_comboAspectRatio.SelectedIndex<=2)
-                flagWidth = (int) (flagHeight / _aspectRatios[_comboAspectRatio.SelectedIndex]);
-
-            int bandsCount = (int) _upDownBandsNum.Value;
-
-            _flagImage = new Bitmap(flagWidth, flagHeight);
-            using (var g = Graphics.FromImage(_flagImage))
+            if (_comboAspectRatio.SelectedIndex <= 2)
             {
-                var bandHeight = _flagImage.Height / (float)bandsCount;
+                flagWidth = (int)(flagHeight / _aspectRatios[_comboAspectRatio.SelectedIndex]);
+                _upDownWidth.Value = flagWidth;
+            }
 
-                for (int i = 0; i < bandsCount; i++)
+            int bandsCount = (int)_upDownBandsNum.Value;
+            var bandColors = _bandColorBoxes.Take(bandsCount).Select(box => box.BandColor).ToArray();
+
+            _flagImage = _radioHorizontal.Checked ? CreateHBandsFlag(flagWidth, flagHeight, bandColors) : CreateVBandsFlag(flagWidth, flagHeight, bandColors);
+
+            _boxImage.Image = _flagImage;
+        }
+
+        private Bitmap CreateHBandsFlag(int flagWidth, int flagHeight, Color[] bandColors)
+        {
+            var flag = new Bitmap(flagWidth, flagHeight);
+            using (var g = Graphics.FromImage(flag))
+            {
+                var bandHeight = flag.Height / (float)bandColors.Length;
+
+                for (int i = 0; i < bandColors.Length; i++)
                 {
-                    using (var brush = new SolidBrush(colors[i]))
-                        g.FillRectangle(brush, 0, i * bandHeight, _flagImage.Width, bandHeight);
+                    using (var brush = new SolidBrush(bandColors[i]))
+                        g.FillRectangle(brush, 0, i * bandHeight, flag.Width, bandHeight);
                 }
             }
 
-            _boxImage.Image = _flagImage;
+            return flag;
+        }
+
+        private Bitmap CreateVBandsFlag(int flagWidth, int flagHeight, Color[] bandColors)
+        {
+            var flag = new Bitmap(flagWidth, flagHeight);
+            using (var g = Graphics.FromImage(flag))
+            {
+                var bandWidth = flag.Width / (float)bandColors.Length;
+
+                for (int i = 0; i < bandColors.Length; i++)
+                {
+                    using (var brush = new SolidBrush(bandColors[i]))
+                        g.FillRectangle(brush, i * bandWidth, 0, bandWidth, flag.Height);
+                }
+            }
+            return flag;
         }
 
         private void _upDownHeight_ValueChanged(object sender, EventArgs e)
@@ -85,10 +119,24 @@ namespace BEFlagCreator
 
         private void _upDownBandsNum_ValueChanged(object sender, EventArgs e)
         {
+            UpdateBandColorBoxEnables();
+
             UpdateFlagImage();
         }
 
+        private void UpdateBandColorBoxEnables()
+        {
+            var bandsCount = (int)_upDownBandsNum.Value;
+            for (int i = 0; i < _bandColorBoxes.Length; i++)
+                _bandColorBoxes[i].Enabled = i < bandsCount;
+        }
+
         private void _bandColorBox_OnColorChanged(object sender, EventArgs e)
+        {
+            UpdateFlagImage();
+        }
+
+        private void _radioHorizontal_CheckedChanged(object sender, EventArgs e)
         {
             UpdateFlagImage();
         }
@@ -102,6 +150,11 @@ namespace BEFlagCreator
                     _flagImage.Save(dlg.FileName);
                 }
             }
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Settings.Default.Save();
         }
     }
 }

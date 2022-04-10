@@ -24,7 +24,7 @@ namespace BEFlagCreator.Controls
 
         public Color Color
         {
-            get { return BackColor; }
+            get => BackColor;
             set
             {
                 BackColor = value;

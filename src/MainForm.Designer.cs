@@ -49,7 +49,17 @@ namespace BEFlagCreator
             this.label2 = new System.Windows.Forms.Label();
             this._upDownHeight = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.splitter1 = new System.Windows.Forms.Splitter();
+            this._groupAnimate = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.button1 = new System.Windows.Forms.Button();
+            this._groupPreview = new System.Windows.Forms.GroupBox();
+            this._checkBorder = new System.Windows.Forms.CheckBox();
+            this._pickerBorderColor = new BEFlagCreator.Controls.ColorPicker();
             this._bandColorBox7 = new BEFlagCreator.BandColorBox();
             this._bandColorBox6 = new BEFlagCreator.BandColorBox();
             this._bandColorBox5 = new BEFlagCreator.BandColorBox();
@@ -64,23 +74,28 @@ namespace BEFlagCreator
             ((System.ComponentModel.ISupportInitialize)(this._upDownMargins)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._upDownWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._upDownHeight)).BeginInit();
+            this._groupAnimate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this._groupPreview.SuspendLayout();
             this.SuspendLayout();
             // 
             // _boxImage
             // 
-            this._boxImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this._boxImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this._boxImage.Image = ((System.Drawing.Image)(resources.GetObject("_boxImage.Image")));
-            this._boxImage.Location = new System.Drawing.Point(0, 0);
+            this._boxImage.Location = new System.Drawing.Point(3, 16);
             this._boxImage.MinimumSize = new System.Drawing.Size(16, 16);
             this._boxImage.Name = "_boxImage";
-            this._boxImage.Size = new System.Drawing.Size(972, 604);
+            this._boxImage.Size = new System.Drawing.Size(771, 585);
             this._boxImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this._boxImage.TabIndex = 0;
             this._boxImage.TabStop = false;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this._pickerBorderColor);
+            this.panel1.Controls.Add(this._checkBorder);
             this.panel1.Controls.Add(this._groupBands);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this._comboAspectRatio);
@@ -112,7 +127,7 @@ namespace BEFlagCreator
             this._groupBands.Controls.Add(this._bandColorBox3);
             this._groupBands.Controls.Add(this._bandColorBox2);
             this._groupBands.Controls.Add(this._bandColorBox1);
-            this._groupBands.Location = new System.Drawing.Point(33, 185);
+            this._groupBands.Location = new System.Drawing.Point(28, 211);
             this._groupBands.Name = "_groupBands";
             this._groupBands.Padding = new System.Windows.Forms.Padding(9, 3, 3, 3);
             this._groupBands.Size = new System.Drawing.Size(143, 231);
@@ -150,8 +165,7 @@ namespace BEFlagCreator
             this._radioHorizontal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this._radioHorizontal.AutoSize = true;
             this._radioHorizontal.Checked = global::BEFlagCreator.Properties.Settings.Default.BandsHorizontal;
-            this._radioHorizontal.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BEFlagCreator.Properties.Settings.Default, "BandsHorizontal", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this._radioHorizontal.Location = new System.Drawing.Point(99, 152);
+            this._radioHorizontal.Location = new System.Drawing.Point(94, 178);
             this._radioHorizontal.Name = "_radioHorizontal";
             this._radioHorizontal.Size = new System.Drawing.Size(72, 17);
             this._radioHorizontal.TabIndex = 8;
@@ -165,8 +179,7 @@ namespace BEFlagCreator
             this._radioVertical.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this._radioVertical.AutoSize = true;
             this._radioVertical.Checked = global::BEFlagCreator.Properties.Settings.Default.BandsVertical;
-            this._radioVertical.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BEFlagCreator.Properties.Settings.Default, "BandsVertical", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this._radioVertical.Location = new System.Drawing.Point(33, 152);
+            this._radioVertical.Location = new System.Drawing.Point(28, 178);
             this._radioVertical.Name = "_radioVertical";
             this._radioVertical.Size = new System.Drawing.Size(60, 17);
             this._radioVertical.TabIndex = 8;
@@ -176,7 +189,7 @@ namespace BEFlagCreator
             // _btnSaveAs
             // 
             this._btnSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._btnSaveAs.Location = new System.Drawing.Point(101, 422);
+            this._btnSaveAs.Location = new System.Drawing.Point(96, 448);
             this._btnSaveAs.Name = "_btnSaveAs";
             this._btnSaveAs.Size = new System.Drawing.Size(75, 23);
             this._btnSaveAs.TabIndex = 7;
@@ -198,7 +211,6 @@ namespace BEFlagCreator
             // _upDownBandsNum
             // 
             this._upDownBandsNum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._upDownBandsNum.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::BEFlagCreator.Properties.Settings.Default, "BandsCount", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this._upDownBandsNum.Location = new System.Drawing.Point(112, 117);
             this._upDownBandsNum.Maximum = new decimal(new int[] {
             7,
@@ -229,7 +241,6 @@ namespace BEFlagCreator
             // _upDownMargins
             // 
             this._upDownMargins.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._upDownMargins.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::BEFlagCreator.Properties.Settings.Default, "Margins", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this._upDownMargins.Location = new System.Drawing.Point(112, 91);
             this._upDownMargins.Maximum = new decimal(new int[] {
             32,
@@ -254,7 +265,6 @@ namespace BEFlagCreator
             // _upDownWidth
             // 
             this._upDownWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._upDownWidth.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::BEFlagCreator.Properties.Settings.Default, "FlagWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this._upDownWidth.Location = new System.Drawing.Point(112, 65);
             this._upDownWidth.Maximum = new decimal(new int[] {
             8196,
@@ -285,7 +295,6 @@ namespace BEFlagCreator
             // _upDownHeight
             // 
             this._upDownHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._upDownHeight.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::BEFlagCreator.Properties.Settings.Default, "FlagHeight", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this._upDownHeight.Location = new System.Drawing.Point(112, 12);
             this._upDownHeight.Maximum = new decimal(new int[] {
             8196,
@@ -313,20 +322,162 @@ namespace BEFlagCreator
             this.label1.TabIndex = 0;
             this.label1.Text = "Height:";
             // 
-            // splitter1
+            // _groupAnimate
             // 
-            this.splitter1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter1.Location = new System.Drawing.Point(972, 0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(5, 604);
-            this.splitter1.TabIndex = 2;
-            this.splitter1.TabStop = false;
+            this._groupAnimate.Controls.Add(this.label7);
+            this._groupAnimate.Controls.Add(this.label6);
+            this._groupAnimate.Controls.Add(this.numericUpDown2);
+            this._groupAnimate.Controls.Add(this.radioButton2);
+            this._groupAnimate.Controls.Add(this.numericUpDown1);
+            this._groupAnimate.Controls.Add(this.radioButton1);
+            this._groupAnimate.Controls.Add(this.button1);
+            this._groupAnimate.Dock = System.Windows.Forms.DockStyle.Right;
+            this._groupAnimate.Location = new System.Drawing.Point(777, 0);
+            this._groupAnimate.Name = "_groupAnimate";
+            this._groupAnimate.Size = new System.Drawing.Size(200, 604);
+            this._groupAnimate.TabIndex = 2;
+            this._groupAnimate.TabStop = false;
+            this._groupAnimate.Text = "Animate";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(84, 45);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(30, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "FPS:";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(18, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(96, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Number of Frames:";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::BEFlagCreator.Properties.Settings.Default, "FlagHeight", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDown2.Location = new System.Drawing.Point(120, 43);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            8196,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(59, 20);
+            this.numericUpDown2.TabIndex = 1;
+            this.numericUpDown2.Value = global::BEFlagCreator.Properties.Settings.Default.FlagHeight;
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this._upDownHeight_ValueChanged);
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Checked = global::BEFlagCreator.Properties.Settings.Default.BandsHorizontal;
+            this.radioButton2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BEFlagCreator.Properties.Settings.Default, "BandsHorizontal", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.radioButton2.Location = new System.Drawing.Point(29, 117);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(64, 17);
+            this.radioButton2.TabIndex = 8;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "From file";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this._radioHorizontal_CheckedChanged);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown1.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::BEFlagCreator.Properties.Settings.Default, "FlagHeight", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDown1.Location = new System.Drawing.Point(120, 17);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            8196,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(59, 20);
+            this.numericUpDown1.TabIndex = 1;
+            this.numericUpDown1.Value = global::BEFlagCreator.Properties.Settings.Default.FlagHeight;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this._upDownHeight_ValueChanged);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = global::BEFlagCreator.Properties.Settings.Default.BandsVertical;
+            this.radioButton1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BEFlagCreator.Properties.Settings.Default, "BandsVertical", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.radioButton1.Location = new System.Drawing.Point(29, 94);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(69, 17);
+            this.radioButton1.TabIndex = 8;
+            this.radioButton1.Text = "Generate";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(116, 115);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(63, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Open";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this._btnSaveAs_Click);
+            // 
+            // _groupPreview
+            // 
+            this._groupPreview.Controls.Add(this._boxImage);
+            this._groupPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._groupPreview.Location = new System.Drawing.Point(0, 0);
+            this._groupPreview.Name = "_groupPreview";
+            this._groupPreview.Size = new System.Drawing.Size(777, 604);
+            this._groupPreview.TabIndex = 3;
+            this._groupPreview.TabStop = false;
+            this._groupPreview.Text = "Preview";
+            // 
+            // _checkBorder
+            // 
+            this._checkBorder.AutoSize = true;
+            this._checkBorder.Location = new System.Drawing.Point(46, 146);
+            this._checkBorder.Name = "_checkBorder";
+            this._checkBorder.Size = new System.Drawing.Size(60, 17);
+            this._checkBorder.TabIndex = 12;
+            this._checkBorder.Text = "Border:";
+            this._checkBorder.UseVisualStyleBackColor = true;
+            this._checkBorder.CheckedChanged += new System.EventHandler(this._checkBorder_CheckedChanged);
+            // 
+            // _pickerBorderColor
+            // 
+            this._pickerBorderColor.BackColor = System.Drawing.Color.Silver;
+            this._pickerBorderColor.Color = System.Drawing.Color.Silver;
+            this._pickerBorderColor.DoRedrawOnColorChange = true;
+            this._pickerBorderColor.Location = new System.Drawing.Point(112, 143);
+            this._pickerBorderColor.Name = "_pickerBorderColor";
+            this._pickerBorderColor.ProcessMouseEvents = true;
+            this._pickerBorderColor.Size = new System.Drawing.Size(43, 22);
+            this._pickerBorderColor.TabIndex = 13;
+            this._pickerBorderColor.OnColorSelected += new System.EventHandler(this._pickerBorderColor_OnColorSelected);
             // 
             // _bandColorBox7
             // 
             this._bandColorBox7.BandColor = global::BEFlagCreator.Properties.Settings.Default.BandColor7;
             this._bandColorBox7.BandName = "Band 7";
-            this._bandColorBox7.DataBindings.Add(new System.Windows.Forms.Binding("BandColor", global::BEFlagCreator.Properties.Settings.Default, "BandColor7", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this._bandColorBox7.Dock = System.Windows.Forms.DockStyle.Top;
             this._bandColorBox7.Location = new System.Drawing.Point(9, 196);
             this._bandColorBox7.Name = "_bandColorBox7";
@@ -338,7 +489,6 @@ namespace BEFlagCreator
             // 
             this._bandColorBox6.BandColor = global::BEFlagCreator.Properties.Settings.Default.BandColor6;
             this._bandColorBox6.BandName = "Band 6";
-            this._bandColorBox6.DataBindings.Add(new System.Windows.Forms.Binding("BandColor", global::BEFlagCreator.Properties.Settings.Default, "BandColor6", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this._bandColorBox6.Dock = System.Windows.Forms.DockStyle.Top;
             this._bandColorBox6.Location = new System.Drawing.Point(9, 166);
             this._bandColorBox6.Name = "_bandColorBox6";
@@ -350,7 +500,6 @@ namespace BEFlagCreator
             // 
             this._bandColorBox5.BandColor = global::BEFlagCreator.Properties.Settings.Default.BandColor5;
             this._bandColorBox5.BandName = "Band 5";
-            this._bandColorBox5.DataBindings.Add(new System.Windows.Forms.Binding("BandColor", global::BEFlagCreator.Properties.Settings.Default, "BandColor5", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this._bandColorBox5.Dock = System.Windows.Forms.DockStyle.Top;
             this._bandColorBox5.Location = new System.Drawing.Point(9, 136);
             this._bandColorBox5.Name = "_bandColorBox5";
@@ -362,7 +511,6 @@ namespace BEFlagCreator
             // 
             this._bandColorBox4.BandColor = global::BEFlagCreator.Properties.Settings.Default.BandColor4;
             this._bandColorBox4.BandName = "Band 4";
-            this._bandColorBox4.DataBindings.Add(new System.Windows.Forms.Binding("BandColor", global::BEFlagCreator.Properties.Settings.Default, "BandColor4", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this._bandColorBox4.Dock = System.Windows.Forms.DockStyle.Top;
             this._bandColorBox4.Location = new System.Drawing.Point(9, 106);
             this._bandColorBox4.Name = "_bandColorBox4";
@@ -374,7 +522,6 @@ namespace BEFlagCreator
             // 
             this._bandColorBox3.BandColor = global::BEFlagCreator.Properties.Settings.Default.BandColor3;
             this._bandColorBox3.BandName = "Band 3";
-            this._bandColorBox3.DataBindings.Add(new System.Windows.Forms.Binding("BandColor", global::BEFlagCreator.Properties.Settings.Default, "BandColor3", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this._bandColorBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this._bandColorBox3.Location = new System.Drawing.Point(9, 76);
             this._bandColorBox3.Name = "_bandColorBox3";
@@ -386,7 +533,6 @@ namespace BEFlagCreator
             // 
             this._bandColorBox2.BandColor = global::BEFlagCreator.Properties.Settings.Default.BandColor2;
             this._bandColorBox2.BandName = "Band 2";
-            this._bandColorBox2.DataBindings.Add(new System.Windows.Forms.Binding("BandColor", global::BEFlagCreator.Properties.Settings.Default, "BandColor2", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this._bandColorBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this._bandColorBox2.Location = new System.Drawing.Point(9, 46);
             this._bandColorBox2.Name = "_bandColorBox2";
@@ -398,7 +544,6 @@ namespace BEFlagCreator
             // 
             this._bandColorBox1.BandColor = global::BEFlagCreator.Properties.Settings.Default.BandColor1;
             this._bandColorBox1.BandName = "Band 1";
-            this._bandColorBox1.DataBindings.Add(new System.Windows.Forms.Binding("BandColor", global::BEFlagCreator.Properties.Settings.Default, "BandColor1", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this._bandColorBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this._bandColorBox1.Location = new System.Drawing.Point(9, 16);
             this._bandColorBox1.Name = "_bandColorBox1";
@@ -411,8 +556,8 @@ namespace BEFlagCreator
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1165, 604);
-            this.Controls.Add(this._boxImage);
-            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this._groupPreview);
+            this.Controls.Add(this._groupAnimate);
             this.Controls.Add(this.panel1);
             this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::BEFlagCreator.Properties.Settings.Default, "MainFormLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Location = global::BEFlagCreator.Properties.Settings.Default.MainFormLocation;
@@ -428,6 +573,11 @@ namespace BEFlagCreator
             ((System.ComponentModel.ISupportInitialize)(this._upDownMargins)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._upDownWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._upDownHeight)).EndInit();
+            this._groupAnimate.ResumeLayout(false);
+            this._groupAnimate.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this._groupPreview.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -436,7 +586,6 @@ namespace BEFlagCreator
 
         private System.Windows.Forms.PictureBox _boxImage;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox _comboAspectRatio;
         private System.Windows.Forms.RadioButton _radioHorizontal;
@@ -459,6 +608,17 @@ namespace BEFlagCreator
         private BandColorBox _bandColorBox3;
         private BandColorBox _bandColorBox2;
         private BandColorBox _bandColorBox1;
+        private System.Windows.Forms.GroupBox _groupAnimate;
+        private System.Windows.Forms.GroupBox _groupPreview;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.CheckBox _checkBorder;
+        private ColorPicker _pickerBorderColor;
     }
 }
 

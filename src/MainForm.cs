@@ -64,42 +64,47 @@ namespace BEFlagCreator
             int bandsCount = (int)_upDownBandsNum.Value;
             var bandColors = _bandColorBoxes.Take(bandsCount).Select(box => box.BandColor).ToArray();
 
-            _flagImage = _radioHorizontal.Checked ? CreateHBandsFlag(flagWidth, flagHeight, bandColors) : CreateVBandsFlag(flagWidth, flagHeight, bandColors);
+            var _flagImage = new Bitmap(flagWidth, flagHeight);
+            using (var g = Graphics.FromImage(_flagImage))
+            {
+                if (_radioHorizontal.Checked)
+                    DrawHFlagBands(g, flagWidth, flagHeight, bandColors);
+                else
+                    DrawVFlagBands(g, flagWidth, flagHeight, bandColors);
+
+                if (_checkBorder.Checked)
+                    DrawFlagBorder(g, flagWidth, flagHeight, _pickerBorderColor.Color);
+            }
 
             _boxImage.Image = _flagImage;
         }
 
-        private Bitmap CreateHBandsFlag(int flagWidth, int flagHeight, Color[] bandColors)
+        private void DrawFlagBorder(Graphics graphics, int flagWidth, int flagHeight, Color color)
         {
-            var flag = new Bitmap(flagWidth, flagHeight);
-            using (var g = Graphics.FromImage(flag))
-            {
-                var bandHeight = flag.Height / (float)bandColors.Length;
-
-                for (int i = 0; i < bandColors.Length; i++)
-                {
-                    using (var brush = new SolidBrush(bandColors[i]))
-                        g.FillRectangle(brush, 0, i * bandHeight, flag.Width, bandHeight);
-                }
-            }
-
-            return flag;
+            using (var pen = new Pen(color))
+                graphics.DrawRectangle(pen, 0, 0, flagWidth - 1, flagHeight - 1);
         }
 
-        private Bitmap CreateVBandsFlag(int flagWidth, int flagHeight, Color[] bandColors)
+        private void DrawHFlagBands(Graphics g, int flagWidth, int flagHeight, Color[] bandColors)
         {
-            var flag = new Bitmap(flagWidth, flagHeight);
-            using (var g = Graphics.FromImage(flag))
-            {
-                var bandWidth = flag.Width / (float)bandColors.Length;
+            var bandHeight = flagHeight / (float)bandColors.Length;
 
-                for (int i = 0; i < bandColors.Length; i++)
-                {
-                    using (var brush = new SolidBrush(bandColors[i]))
-                        g.FillRectangle(brush, i * bandWidth, 0, bandWidth, flag.Height);
-                }
+            for (int i = 0; i < bandColors.Length; i++)
+            {
+                using (var brush = new SolidBrush(bandColors[i]))
+                    g.FillRectangle(brush, 0, i * bandHeight, flagWidth, bandHeight);
             }
-            return flag;
+        }
+
+        private void DrawVFlagBands(Graphics g, int flagWidth, int flagHeight, Color[] bandColors)
+        {
+            var bandWidth = flagWidth / (float)bandColors.Length;
+
+            for (int i = 0; i < bandColors.Length; i++)
+            {
+                using (var brush = new SolidBrush(bandColors[i]))
+                    g.FillRectangle(brush, i * bandWidth, 0, bandWidth, flagHeight);
+            }
         }
 
         private void _upDownHeight_ValueChanged(object sender, EventArgs e)
@@ -155,6 +160,124 @@ namespace BEFlagCreator
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Settings.Default.Save();
+        }
+
+        private void _pickerBorderColor_OnColorSelected(object sender, EventArgs e)
+        {
+            using (var dlg = new ColorDialog())
+            {
+                dlg.AllowFullOpen = true;
+                dlg.FullOpen = true;
+                dlg.AnyColor = true;
+                dlg.SolidColorOnly = false;
+                dlg.ShowHelp = false;
+                dlg.Color = _pickerBorderColor.Color;
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    _pickerBorderColor.Color = dlg.Color;
+                    UpdateFlagImage();
+                }
+
+            }
+        }
+
+        private void _checkBorder_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateFlagImage();
+        }
+
+        private Bitmap[] _frames;
+
+        void CreateFrames(int frameCount)
+        {
+            int margins = 10;
+
+            float waveAmplitude = 0.1f;
+
+            Debug.Assert(waveAmplitude < 0.5);
+
+            var frameHeight = (int)Math.Round(_flagImage.Height * (1 + 4 * waveAmplitude)) + 2 * margins;
+            var frameWidth = _flagImage.Width + 2 * margins;
+
+            int A = (int)Math.Round(_flagImage.Height *  waveAmplitude);
+
+            Debug.Assert(frameCount > 0);
+            _frames = new Bitmap[frameCount];
+
+            var dPh = -2 * Math.PI / frameCount;
+            for (int i = 0; i < frameCount; i++)
+            {
+                Debug.WriteLine($"i={i}");
+                var ph = dPh * i;
+                Console.WriteLine($"Ph={ph}");
+                var w = 1.5 * Math.PI / _flagImage.Width;
+                _frames[i] = new Bitmap(frameWidth, frameHeight);
+
+                var xshift = margins;
+
+                var sin0 = Math.Sin(ph);
+
+                for (int x = 0; x < _flagImage.Width; x++)
+                {
+                    var sin = Math.Sin(w * x + ph);
+                    var yshift = (int)Math.Round(margins + 2 * A + A * (sin - sin0));
+
+                    for (int y = 0; y < _flagImage.Height; y++)
+                    {
+                        _frames[i].SetPixel(x + xshift, y + yshift, _flagImage.GetPixel(x, y));
+                    }
+                }
+            }
+
+            //using (var gif = AnimatedGif.AnimatedGif.Create("flag.gif", 31))
+            //{
+            //    var dPh = -2 * Math.PI / (N);
+            //    for (int i = 0; i < N; i++)
+            //    {
+            //        Console.WriteLine($"i={i}");
+            //        var ph = dPh * i;
+            //        Console.WriteLine($"Ph={ph}");
+            //        var w = 1.5 * Math.PI / flagWidth;
+            //        var frame = new Bitmap(gifWidth, gifHeight);
+
+            //        var xshift = margins;
+
+            //        var sin0 = Math.Sin(ph);
+
+            //        for (int x = 0; x < flagImage.Width; x++)
+            //        {
+            //            var sin = Math.Sin(w * x + ph);
+            //            var yshift = (int)Math.Round(margins + 2 * A + A * (sin - sin0));
+
+            //            for (int y = 0; y < flagImage.Height; y++)
+            //            {
+            //                frame.SetPixel(x + xshift, y + yshift, flagImage.GetPixel(x, y));
+            //            }
+            //        }
+            //        gif.AddFrame(frame, delay: -1, quality: GifQuality.Bit8);
+            //    }
+
+                //for (int i = N-1; i >=0; i--)
+                //{
+                //    Console.WriteLine($"i={i}");
+                //    var a = -A + dA * i;
+                //    var w = 2 * Math.PI / flagWidth;
+                //    var frame = new Bitmap(flagWidth, height);
+                //    for (int x = 0; x < flagWidth; x++)
+                //    {
+                //        var ybeg = A + a * Math.Sin(w * x);
+                //        var yend = flagHeight + ybeg;
+
+                //        for (int y = 0; y < height; y++)
+                //        {
+                //            if (y > ybeg && y < yend)
+                //                frame.SetPixel(x, y, colors[0]);
+                //        }
+                //    }
+                //    gif.AddFrame(frame, delay: -1, quality: GifQuality.Bit8);
+                //}
+            }
         }
     }
 }

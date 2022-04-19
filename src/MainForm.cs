@@ -64,7 +64,7 @@ namespace BEFlagCreator
             int bandsCount = (int)_upDownBandsNum.Value;
             var bandColors = _bandColorBoxes.Take(bandsCount).Select(box => box.BandColor).ToArray();
 
-            var _flagImage = new Bitmap(flagWidth, flagHeight);
+            _flagImage = new Bitmap(flagWidth, flagHeight);
             using (var g = Graphics.FromImage(_flagImage))
             {
                 if (_radioHorizontal.Checked)
@@ -200,7 +200,7 @@ namespace BEFlagCreator
             var frameHeight = (int)Math.Round(_flagImage.Height * (1 + 4 * waveAmplitude)) + 2 * margins;
             var frameWidth = _flagImage.Width + 2 * margins;
 
-            int A = (int)Math.Round(_flagImage.Height *  waveAmplitude);
+            int A = (int)Math.Round(_flagImage.Height * waveAmplitude);
 
             Debug.Assert(frameCount > 0);
             _frames = new Bitmap[frameCount];
@@ -258,26 +258,46 @@ namespace BEFlagCreator
             //        gif.AddFrame(frame, delay: -1, quality: GifQuality.Bit8);
             //    }
 
-                //for (int i = N-1; i >=0; i--)
-                //{
-                //    Console.WriteLine($"i={i}");
-                //    var a = -A + dA * i;
-                //    var w = 2 * Math.PI / flagWidth;
-                //    var frame = new Bitmap(flagWidth, height);
-                //    for (int x = 0; x < flagWidth; x++)
-                //    {
-                //        var ybeg = A + a * Math.Sin(w * x);
-                //        var yend = flagHeight + ybeg;
+            //for (int i = N-1; i >=0; i--)
+            //{
+            //    Console.WriteLine($"i={i}");
+            //    var a = -A + dA * i;
+            //    var w = 2 * Math.PI / flagWidth;
+            //    var frame = new Bitmap(flagWidth, height);
+            //    for (int x = 0; x < flagWidth; x++)
+            //    {
+            //        var ybeg = A + a * Math.Sin(w * x);
+            //        var yend = flagHeight + ybeg;
 
-                //        for (int y = 0; y < height; y++)
-                //        {
-                //            if (y > ybeg && y < yend)
-                //                frame.SetPixel(x, y, colors[0]);
-                //        }
-                //    }
-                //    gif.AddFrame(frame, delay: -1, quality: GifQuality.Bit8);
-                //}
-            }
+            //        for (int y = 0; y < height; y++)
+            //        {
+            //            if (y > ybeg && y < yend)
+            //                frame.SetPixel(x, y, colors[0]);
+            //        }
+            //    }
+            //    gif.AddFrame(frame, delay: -1, quality: GifQuality.Bit8);
+            //}
+        }
+
+        private int _curFrame = 0;
+        private void _timerAnimation_Tick(object sender, EventArgs e)
+        {
+            _curFrame++;
+            if (_curFrame >= _frames.Length)
+                _curFrame = 0;
+            _boxImage.Image = _frames[_curFrame];
+            _labelCurFrame.Text = $"{_curFrame + 1}/{_frames.Length}";
+        }
+
+        private void _btnStartStop_Click(object sender, EventArgs e)
+        {
+            _timerAnimation.Enabled = !_timerAnimation.Enabled;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            CreateFrames(20);
         }
     }
 }
+
